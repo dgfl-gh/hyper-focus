@@ -26,8 +26,6 @@ class SystemObserver {
             name: NSWorkspace.didActivateApplicationNotification,
             object: nil
         )
-
-        focusedAppChanged()
     }
 
     func hasActiveSchedule() -> Bool {
@@ -183,6 +181,10 @@ class SystemObserver {
 
         if focusedWindow != nil {
             focusedWindowChanged(observer!, window: focusedWindow as! AXUIElement)
+        }
+        else {
+            // call again until window is not open and we can handle it properly
+            focusedAppChanged()
         }
     }
 }
